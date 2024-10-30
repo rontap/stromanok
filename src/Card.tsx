@@ -10,6 +10,8 @@ export type CardCtr = {
     quote?: string;
     effect?: string;
     rank: number;
+    chips: string;
+    deg: number;
 } & Image;
 
 export class Card {

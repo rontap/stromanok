@@ -3,72 +3,194 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
 }
+
 a:hover {
-  color: #535bf2;
+    color: #535bf2;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  min-width: 320px;
-  min-height: 100vh;
+    margin: 0;
+    display: flex;
+    min-width: 320px;
+    min-height: 100vh;
 
-  background:#f1f1f1;
+    background: #f1f1f1;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+    font-size: 3.2em;
+    line-height: 1.1;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
 }
 
 button:hover {
-  border-color: #646cff;
+    border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+    outline: 4px auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+    :root {
+        color: #213547;
+        background-color: #ffffff;
+    }
+
+    a:hover {
+        color: #747bff;
+    }
+
+    button {
+        background-color: #f9f9f9;
+    }
+}
+
+.cardOuter {
+    position: relative;
+}
+
+.imgCtr {
+    display: block;
+    /*border: 3px solid red;*/
+    width: 260px;
+    height: 400px;
+    overflow: hidden;
+    user-select: none;
+    cursor: move;
+    z-index: -1;
+}
+
+.cardName {
+    position: absolute;
+    transform: rotate(-5deg);
+    top: 15px;
+    z-index: 9;
+    left: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.aCard {
+    border: 3px solid blue;
+    font-family: 'Bahnschrift';
+    z-index: 4;
+    overflow: hidden;
+    display: block;
+
+}
+
+.cardMCE {
+    position: absolute;
+    top: 260px;
+    font-size: 18px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 99;
+}
+
+.cardRank {
+    font-size: 36px;
+    font-weight: bolder;
+    top: 205px;
+    left: 20px;
+    width: 80px;
+    text-align: center;
+    position: absolute;
+    z-index: 9;
+}
+
+.aCardDyn {
+    position: absolute;
+    top: 0;
+
+}
+
+.svgCtr {
+    position: relative;
+    z-index: 3;
+}
+
+.chip {
+    border: 1px solid green;
+}
+
+
+.st0 {
+    fill: none;
+}
+
+.st1 {
+    fill: #1C75BC;
+}
+
+.st2 {
+    fill: transparent;
+    stroke: #000000;
+    stroke-miterlimit: 10;
+    cursor: move;
+}
+
+.st3 {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 6;
+    stroke-miterlimit: 10;
+}
+
+.st4 {
+    opacity: 1;
+    fill: #CCC;
+    stroke: #000000;
+    stroke-miterlimit: 10;
+}
+
+.st5 {
+    opacity: 0.63;
+    fill: url(#_x36__dpi_20_x25_);
+    stroke: #000000;
+    stroke-miterlimit: 10;
+}
+
+.st6 {
+    fill: #00AEEF;
+}
+
+.st7 {
+    fill: #E6E7E8;
+    stroke: #000000;
+    stroke-width: 10;
+    stroke-miterlimit: 10;
 }
