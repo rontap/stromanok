@@ -138,13 +138,23 @@ button:focus-visible {
 
 }
 
+.cardChips {
+    position: absolute;
+    top: 48px;
+    z-index: 99;
+    transform: skew(-2deg, -5deg);
+}
+
 .svgCtr {
     position: relative;
     z-index: 3;
 }
 
 .chip {
-    border: 1px solid green;
+    border: 2px solid #444;
+    background: #ccc;
+    padding: 1px;
+    margin: 2px;
 }
 
 
@@ -193,4 +203,13 @@ button:focus-visible {
     stroke: #000000;
     stroke-width: 10;
     stroke-miterlimit: 10;
+}
+
+#head {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 0px 10px 0px 10px;
+    background: #dbeaff;
 }
