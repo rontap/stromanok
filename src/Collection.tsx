@@ -1,5 +1,7 @@
 import {Card} from "./Card.tsx";
 
+export const app_version = 1.1;
+
 class Collection {
     cards: Card[] = [];
 
@@ -11,7 +13,7 @@ class Collection {
         const cardsJSON = this.cards.map(card => card.toJSON());
         const exported = {
             cards: cardsJSON,
-            app_version: 1,
+            app_version: app_version,
         }
         return JSON.stringify(exported);
     }

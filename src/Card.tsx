@@ -1,8 +1,11 @@
+import {download} from "./utils.ts";
+import {app_version} from "./Collection.tsx";
+
 type Image = {
     xpos: number;
     ypos: number;
     width: number;
-    data: string;
+    img: string;
 }
 export type CardCtr = {
     name: string;
@@ -22,8 +25,8 @@ export class Card {
         this.card = card;
     }
 
-    toJSON(): string {
-        return JSON.stringify(this.card)
+    static toJSON(card: CardCtr): string {
+        return JSON.stringify(card)
     }
 
     static fromJSON(jsonStr: string) {
@@ -34,6 +37,13 @@ export class Card {
         } catch (e) {
             console.error("MALFORMED JSON", e);
         }
+    }
+
+    static download(card: CardCtr) {
+        download(
+            Card.toJSON(card),
+            `stromanok-${card.rank}.str${app_version}.json`
+        )
     }
 
 }

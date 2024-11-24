@@ -4,8 +4,9 @@ import './index.css'
 import "@radix-ui/themes/styles.css";
 import {Button, Heading, Tabs, Text, TextArea, TextField, Theme} from '@radix-ui/themes';
 import SliderInput from "./SliderInput.tsx";
-import {CardCtr} from "./Card.tsx";
+import {Card, CardCtr} from "./Card.tsx";
 import Svg from "./Svg.tsx";
+import {convertBlobToBase64, getMimeType} from "./utils.ts";
 
 const transparentImage = new Image();
 transparentImage.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAwAB/6HpHqQAAAAASUVORK5CYII=";
@@ -60,12 +61,32 @@ function App() {
             [prop]: value
         }))
     }
+    const handleFileUpload = (event) => {
+        const ourl = URL.createObjectURL(event.target.files[0]);
 
+        fetch(ourl)
+            .then(res => res.json())
+            .then(json => {
+                const {img} = json;
+                setCard(json);
+                setImg(img);
+            })
+    }
     const handleImageUpload = (event) => {
+        const ourl = URL.createObjectURL(event.target.files[0]);
+        setImg(ourl);
+        fetch(ourl)
+            .then(res => res.blob())
+            .then(convertBlobToBase64)
+            .then(b64 => {
+                console.log('blob', b64)
+                setPartialRaw("img")(b64)
+                URL.revokeObjectURL(ourl);
+            })
 
-        setImg(URL.createObjectURL(event.target.files[0]));
     }
     window.card = card;
+    window.setCard = setCard;
     return (
         <><Theme id="theme"><Tabs.Root defaultValue="account">
 
@@ -79,7 +100,7 @@ function App() {
                 </Tabs.List>
             </div>
 
-            <div className="grid grid-cols-2 grid-rows-2 [marginTop:50px]">
+            <div className="grid grid-cols-2 gap-4  grid-rows-2 [marginTop:50px]">
 
                 <div className="grid gap-4 grid-cols-1">
                     <div className="mt-0 cardOuter">
@@ -199,15 +220,20 @@ function App() {
                         value={card.css}
                         onChange={setPartial("css")}
                         placeholder="@{CSS}"/>
-                    <small>
-                        @cardRank - card rank container<br/>
-                        @cardMCE - <br/>
-                        @aCard -<br/>
-                        @aCardDyn -<br/>
-                        @cardChips -<br/>
-                        @st[2-7]
-                    </small>
-                    <Button>Add Card</Button>
+                    {/*<small>*/}
+                    {/*    @cardRank - card rank container<br/>*/}
+                    {/*    @cardMCE - <br/>*/}
+                    {/*    @aCard -<br/>*/}
+                    {/*    @aCardDyn -<br/>*/}
+                    {/*    @cardChips -<br/>*/}
+                    {/*    @st[2-7]*/}
+                    {/*</small>*/}
+                    <Button onClick={() => Card.download(card)}>Export</Button>
+                    <Button disabled>Add Card</Button>
+                    <hr/>
+                    Load File
+                    <TextField.Root
+                        type="file" accept="application/json" onChange={handleFileUpload}/>
 
                 </div>
             </div>
