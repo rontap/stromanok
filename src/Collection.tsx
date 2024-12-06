@@ -2,7 +2,7 @@ import {Card} from "./Card.tsx";
 
 export const app_version = 1.1;
 
-class Collection {
+export class Collection {
     cards: Card[] = [];
 
     constructor(cards: Card[]) {
@@ -30,5 +30,9 @@ class Collection {
                 errors.push(`Duplicate Rank: ${key} has ${duplicates[key]} instances`)
             }
         })
+    }
+
+    add(cards) {
+        this.cards.push(...cards);
     }
 }

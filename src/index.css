@@ -79,6 +79,9 @@ button:focus-visible {
 
 .cardOuter {
     position: relative;
+    width:300px;
+    height:400px;
+    overflow: hidden;
 }
 
 .imgCtr {
@@ -103,7 +106,7 @@ button:focus-visible {
 }
 
 .aCard {
-    border: 3px solid blue;
+    border: 3px solid red;
     font-family: 'Bahnschrift';
     z-index: 4;
     overflow: hidden;
@@ -145,7 +148,7 @@ button:focus-visible {
     position: absolute;
     top: 48px;
     z-index: 99;
-    transform: skew(-2deg, -5deg);
+    transform: skew(-0deg, -6deg);
 }
 
 .svgCtr {
@@ -198,7 +201,7 @@ button:focus-visible {
 }
 
 .st6 {
-    fill: #00AEEF;
+    /*fill: #00AEEF;*/
 }
 
 .st7 {
