@@ -1,12 +1,14 @@
 #root {
-    max-width: 1280px;
+    width: 100%;
     margin: 0 auto;
     padding: 2rem;
     background: #f1f1f1;
 }
+
 #theme {
-    background:#f1f1f1 !important;
+    background: #f1f1f1 !important;
 }
+
 .logo {
     height: 6em;
     padding: 1.5em;

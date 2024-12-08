@@ -76,19 +76,23 @@ button:focus-visible {
         background-color: #f9f9f9;
     }
 }
+:root {
+    --card-w : calc(874px / 3);
+    --card-h : calc(1240px / 3);
 
+}
 .cardOuter {
     position: relative;
-    width:300px;
-    height:400px;
+    width: var(--card-w);
+    height: var(--card-h);
     overflow: hidden;
 }
 
 .imgCtr {
     display: block;
     /*border: 3px solid red;*/
-    width: 300px;
-    height: 400px;
+    width: var(--card-w);
+    height: var(--card-h);
     overflow: hidden;
     user-select: none;
     cursor: move;
@@ -97,7 +101,7 @@ button:focus-visible {
 
 .cardName {
     position: absolute;
-    transform: rotate(-5deg);
+    transform:skew(-0deg, -6deg);
     top: 15px;
     z-index: 9;
     left: 10px;
@@ -106,7 +110,7 @@ button:focus-visible {
 }
 
 .aCard {
-    border: 3px solid red;
+    border: 2px solid #222;
     font-family: 'Bahnschrift';
     z-index: 4;
     overflow: hidden;
@@ -117,7 +121,7 @@ button:focus-visible {
 .cardMCE {
     position: absolute;
     top: 310px;
-    line-height:12px;
+    line-height: 12px;
     font-size: 18px;
     left: 0;
     right: 0;
@@ -139,8 +143,8 @@ button:focus-visible {
 .aCardDyn {
     position: absolute;
     top: 0;
-    left:0;
-    right:0;
+    left: 0;
+    right: 0;
 
 }
 

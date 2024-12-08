@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export default function Svg({card, setPartialRaw}) {
+export default function Svg({card, setPartialRaw, rankless}: { rankless: boolean }) {
     const [active, setActive] = useState<boolean>(false);
     const [dragStart, setDragStart] = useState<[null | number, null | number]>([null, null]);
     const [dragStartPos, setDragStartPos] = useState<[null | number, null | number]>([null, null]);
@@ -86,15 +86,15 @@ export default function Svg({card, setPartialRaw}) {
             <rect x="0" y={lowerLimit} className="st4" width="595.28" height="310.92"/>
             <rect x="0" y={lowerLimit} className="st5" width="595.28" height="308.62"/>
             <g>
-	<polygon className="st6" fill={fill}
-             style={{transform: `translateY(${translate}px)`}}
+	{!rankless && <polygon className="st6" fill={fill}
+                           style={{transform: `translateY(${translate}px)`}}
 
-             points="182.68,602.89 96.36,602.89 53.19,528.13 96.36,453.37 182.68,453.37 225.85,528.13 	"/>
+                           points="182.68,602.89 96.36,602.89 53.19,528.13 96.36,453.37 182.68,453.37 225.85,528.13 	"/>}
                 <g>
-		<g>
-			<g>
-				<g>
-					<path d="M219.68,543.46c0.02,0.06,0.06,0.12,0.12,0.18C219.77,543.53,219.73,543.48,219.68,543.46z"/>
+		{!rankless && <g>
+            <g>
+                <g>
+                    <path d="M219.68,543.46c0.02,0.06,0.06,0.12,0.12,0.18C219.77,543.53,219.73,543.48,219.68,543.46z"/>
                     <path d="M216.73,505.16l0.32,0.36C216.88,505.26,216.79,505.18,216.73,505.16z"/>
                     <path d="M206.99,564.38c0-0.04-0.01-0.04-0.01-0.07c-0.2,0.32-0.46,0.76-0.89,1.47L206.99,564.38z"/>
                     <path d="M157.49,448.36l0.55-0.01C157.79,448.35,157.63,448.33,157.49,448.36z"/>
@@ -257,9 +257,9 @@ export default function Svg({card, setPartialRaw}) {
                     <path d="M203.67,559.69c0.08-0.16,0.14-0.3,0.16-0.44c-0.08,0.12-0.18,0.26-0.31,0.43
 						C203.6,559.67,203.64,559.68,203.67,559.69z"/>
                     <path d="M220.66,531.12c0.01,0.31,0.06,0.45,0.12,0.5C220.93,531.34,220.96,531.14,220.66,531.12z"/>
-				</g>
-			</g>
-		</g>
+                </g>
+            </g>
+        </g>}
 	</g>
 </g>
             <rect x="-68.65" y="-95.59" transform="matrix(0.9968 -0.0795 0.0795 0.9968 -0.138 22.1286)" className="st7"

@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './App.css'
 import './index.css'
 import "@radix-ui/themes/styles.css";
-import {Button, Heading, Tabs, Text, TextArea, TextField, Theme} from '@radix-ui/themes';
+import {Button, Checkbox, Heading, Tabs, Text, TextArea, TextField, Theme} from '@radix-ui/themes';
 import SliderInput from "./SliderInput.tsx";
-import {Card} from "./Card.tsx";
+import {Card, CardCtr} from "./Card.tsx";
 import {convertBlobToBase64} from "./utils.ts";
 import Deck from "./Deck.tsx";
 import {Collection} from "./Collection.tsx";
@@ -19,14 +19,29 @@ function App() {
     const [dragStart, setDragStart] = useState<[null | number, null | number]>([null, null]);
     const [dragStartPos, setDragStartPos] = useState<[null | number, null | number]>([null, null]);
     const [img, setImg] = useState(null);
-    const [card, setCard] = useState<Card>(new Card());
-    const setCardInner = (card) => {
+    const [cardIndex, setCardIndex] = useState<number>(0);
+    const [tab, setTab] = useState("deck");
+    const [card, setCardH] = useState(deck.cards[cardIndex] || new Card());
+
+
+    const setCard = (newCard: Card) => {
+        console.log('>card', deck.cards[1]);
+        setDeck(deck => {
+            deck.cards[cardIndex] = newCard;
+            return deck;
+        })
+        setCardH(newCard);
+    }
+    useEffect(() => {
+        setCardH(deck.cards[cardIndex] || new Card()) ;
+    }, [cardIndex, deck]);
+    const setCardInner = (card: CardCtr) => {
         const newCard = new Card(card);
-        console.log(newCard.card)
         setCard(newCard);
     }
     const startDrag = (evt) => {
-        setDragStartPos([card.card.xpos, card.card.ypos])
+        setDragStartPos([card.xpos, card.ypos])
+
         setDragStart([evt.clientX, evt.clientY]);
         evt.dataTransfer.setDragImage(transparentImage, 0, 0);
 
@@ -46,6 +61,7 @@ function App() {
     }
 
     const setPartial = (prop) => (evt) => {
+        console.log(prop, evt)
         setCardInner({
             ...card.card,
             [prop]: evt.target.value
@@ -86,28 +102,29 @@ function App() {
     window.card = card;
     window.setCard = setCard;
     return (
-        <><Theme id="theme"><Tabs.Root defaultValue="deck">
+        <><Theme id="theme"><Tabs.Root value={tab}>
 
-            <div id={"head"}>
+            <div id={"head"} className={"print:hidden"}>
 
                 <Tabs.List>
                     <b className={"mt-2.5"}>Strómanók Kártyagyár</b>
-                    <Tabs.Trigger value="deck">Pakli</Tabs.Trigger>
-                    <Tabs.Trigger value="cards">Kártyák</Tabs.Trigger>
-                    <Tabs.Trigger value="eximport">Export / Import</Tabs.Trigger>
+                    <Tabs.Trigger onClick={() => setTab("deck")} value="deck">Pakli</Tabs.Trigger>
+                    <Tabs.Trigger onClick={() => setTab("cards")} value="cards">Kártyák</Tabs.Trigger>
+                    <Tabs.Trigger onClick={() => setTab("eximport")} value="eximport">Export / Import</Tabs.Trigger>
                 </Tabs.List>
             </div>
 
             <Tabs.Content className="TabsContent" value="deck">
-                <Deck deck={deck} setCard={setCard} setDeck={setDeck}/>
+                <Deck deck={deck} setCardIndex={setCardIndex} setTab={setTab} setDeck={setDeck}/>
             </Tabs.Content>
             <Tabs.Content className="TabsContent" value="cards">
-                <div className="grid grid-cols-2 gap-4  grid-rows-2 [marginTop:50px]">
+                <div className="grid grid-cols-2 gap-4 absolute left-0 right-0 top-10 grid-rows-2 [marginTop:50px]">
 
                     <div className="grid gap-4 grid-cols-1">
                         <CardTSX card={card}
+                                 interact={false}
                                  img={img} setPartialRaw={setPartialRaw}
-                                 drag={drag} setDrag={startDrag} endDrag={endDrag}/>
+                                 drag={drag} startDrag={startDrag} endDrag={endDrag}/>
 
                     </div>
                     <div className="grid gap-2 grid-cols-1">
@@ -137,6 +154,12 @@ function App() {
                             onChange={setPartial("quote")}
                             disabled={!!(card.effect && card.motto)}
                             placeholder="Quote from the person"/>
+                        <div className="grid gap-1">
+                            Rankless
+                            <Checkbox
+                                checked={card.rankless}
+                                onCheckedChange={setPartialRaw("rankless")}/>
+                        </div>
                         <div className="grid gap-1">
                             <Text>Rank of Card.</Text>
                             <SliderInput

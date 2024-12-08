@@ -2,6 +2,8 @@ import {download} from "./utils.ts";
 import {app_version} from "./Collection.tsx";
 import Svg from "./Svg.tsx";
 import React from "react";
+import './3deffect.css';
+import {endRotateToMouse, rotateToMouse} from "./3d.ts";
 
 type Image = {
     xpos: number;
@@ -19,6 +21,7 @@ export type CardCtr = {
     deg: number;
     css: string;
     img: string;
+    rankless: boolean;
 } & Image;
 
 export class Card {
@@ -35,7 +38,8 @@ export class Card {
             chips: "",
             deg: 0,
             css: "",
-            img: ""
+            img: "",
+            rankless: false,
 
         };
     }
@@ -80,6 +84,10 @@ export class Card {
         return this.card.motto
     };
 
+    get rankless() {
+        return this.card.rankless
+    };
+
     static toJSON(card: CardCtr): string {
         return JSON.stringify(card)
     }
@@ -101,16 +109,22 @@ export class Card {
         )
     }
 
-    tsx({card, setPartialRaw, drag, startDrag, endDrag, img}: { card: Card }) {
-        startDrag = startDrag ?? (() => false);
+    tsx({card, setPartialRaw, drag, startDrag, endDrag, img, onClick, interact}: { card: Card, interact: boolean }) {
+        startDrag = startDrag ?? (() => console.log('>>?'));
         endDrag = endDrag ?? (() => false);
         drag = drag ?? (() => false);
         return <>
-            <div className="mt-0 cardOuter">
+            <div className={`mt-0 cardOuter card card-id-${card.rank}`}
 
+                 onMouseEnter={rotateToMouse(card)}
+                 onMouseMove={rotateToMouse(card)}
+                 onMouseLeave={endRotateToMouse(card)}>
                 <div className={"aCard"}>
+
                     <div className="svgCtr">
-                        <Svg card={card} setPartialRaw={setPartialRaw}/>
+                        <Svg card={card}
+                             rankless={card.rankless}
+                             setPartialRaw={setPartialRaw}/>
                     </div>
                     <div className={"aCardDyn"}>
                         <div className="imgCtr">
@@ -126,14 +140,14 @@ export class Card {
                                      marginTop: (-card.ypos) + "px",
                                      transform: `rotate(${card.deg}deg)`
                                  }}
-                                 src={img}/>
+                                 src={img || card.card.img}/>
                         </div>
 
                         <div className={"cardName"}>{card.name}</div>
                         <div className={"cardMCE"}>
                             <div>{card.effect}</div>
                             <div>{card.motto}</div>
-                            {card.quote && <i>"{card.quote}"</i>}
+                            {card.quote && <i>{card.quote}</i>}
                         </div>
 
                         <div className={"cardChips"}>{card.chips.split(",").map(chip => <span
@@ -142,9 +156,11 @@ export class Card {
                         <div>
 
                         </div>
-                        <div className={"cardRank"}>{card.rank}</div>
+                        {!card.rankless && <div className={"cardRank"}>{card.rank}</div>}
                     </div>
                 </div>
+                {interact &&
+                    <div className={"glow"} onClick={onClick ?? onClick}>&nbsp;</div>}
             </div>
         </>
     }

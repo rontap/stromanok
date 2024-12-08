@@ -1,6 +1,7 @@
-import {Card} from "./Card.tsx";
+import {Card, CardCtr} from "./Card.tsx";
+import {download} from "./utils.ts";
 
-export const app_version = 1.1;
+export const app_version = 1.2;
 
 export class Collection {
     cards: Card[] = [];
@@ -10,12 +11,26 @@ export class Collection {
     }
 
     toJSON() {
-        const cardsJSON = this.cards.map(card => card.toJSON());
+        const cardsJSON = this.cards.map(card => card.card);
         const exported = {
             cards: cardsJSON,
             app_version: app_version,
         }
-        return JSON.stringify(exported);
+        download(
+            JSON.stringify(exported),
+            `deck-stromanok-.deck${app_version}.json`
+        )
+    }
+
+    static fromJSON(deck) {
+
+        if (app_version != deck.app_version) {
+            if (!window.confirm(`app version mismatch. ${app_version} vs ${deck.app_version}\nCards may not load correctly. Continue?`)) {
+                return;
+            }
+        }
+        deck.cards = deck.cards.map((card: CardCtr) => new Card(card));
+        return deck;
     }
 
     checkErrors() {

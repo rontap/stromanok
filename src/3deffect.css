@@ -1,0 +1,55 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    font-family: system-ui, sans-serif;
+    perspective: 1500px;
+    background: linear-gradient(white, #efefef);
+}
+
+.card {
+    text-align: right;
+    color: #181a1a;
+
+    box-shadow: 0 1px 5px #00000099;
+    padding:0px;
+    border-radius: 3px;
+    background-size: cover;
+
+    position: relative;
+
+    transition-duration: 300ms;
+    transition-property: transform, box-shadow;
+    transition-timing-function: ease-out;
+    transform: rotate3d(0);
+}
+
+.card:hover {
+    transition-duration: 150ms;
+    box-shadow: 0 5px 20px 5px #00000044;
+}
+
+.card .glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+
+    background-image: radial-gradient(circle at 50% -20%, #ffffff22, #0000000f);
+}
+.glow {
+    position:absolute;
+    left:0;right:0;top:0;bottom:0;
+
+    z-index:99
+}
