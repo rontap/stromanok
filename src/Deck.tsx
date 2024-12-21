@@ -45,9 +45,9 @@ export default function Deck({deck, setCardIndex, setDeck, setTab}: DeckProps) {
     return <div className={"mt-20 block absolute top-0 left-0 right-0"}>
         <Heading>Deck{deck.cards.length > 0 ? `: ${deck.cards.length} Cards` : ''}</Heading>
         <br/>
-        <div className={"p-3 bg-blue-100 rounded-l border-blue-300 border"}>
+        <div className={"p-3 bg-blue-100 rounded-l border-blue-300 border print:hide"}>
             <Heading>Actions</Heading>
-            <div className={"grid gap-3 grid-cols-3"}>
+            <div className={"grid gap-3 grid-cols-3 "}>
                 <div className="grid gap-1">
                     <Text>Upload Deck</Text>
                     <input type="file" accept="application/json" onChange={handleUpload}/>
@@ -61,7 +61,7 @@ export default function Deck({deck, setCardIndex, setDeck, setTab}: DeckProps) {
         </div>
         <br/>
         <br/>
-        <div className={"grid grid-cols-4 print:grid-cols-3 gap-5 w-[1380px]"}>
+        <div className={"grid grid-cols-4 print:grid-cols-4 gap-5 w-[1380px] print:gap-3"}>
             {deck.cards.sort(sortCards).map((card, i) => {
                 const CardTSX = card.tsx;
                 return (<div>

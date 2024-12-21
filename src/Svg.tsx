@@ -21,7 +21,8 @@ export default function Svg({card, setPartialRaw, rankless}: { rankless: boolean
         setDragStartPos([null, null])
         setDragStart([null, null]);
     }
-    const fill = `hsl(${250 - card.rank * 8},60%,60%)`;
+    const fill = `hsl(${240 - card.rank * 9},60%,60%)`;
+    const fillbg = `hsl(${240 - card.rank * 9},60%,90%)`;
     const lowerLimit = 560
     const translate = lowerLimit - 528.5;
 
@@ -84,7 +85,7 @@ export default function Svg({card, setPartialRaw, rankless}: { rankless: boolean
             />
             <line className="st3" x1="-28.76" y1={lowerLimit} x2="642.99" y2={lowerLimit}/>
             <rect x="0" y={lowerLimit} className="st4" width="595.28" height="310.92"/>
-            <rect x="0" y={lowerLimit} className="st5" width="595.28" height="308.62"/>
+            <rect x="0" y={lowerLimit} className="st5" style={{fill: fillbg}} width="595.28" height="308.62"/>
             <g>
 	{!rankless && <polygon className="st6" fill={fill}
                            style={{transform: `translateY(${translate}px)`}}
@@ -262,7 +263,7 @@ export default function Svg({card, setPartialRaw, rankless}: { rankless: boolean
         </g>}
 	</g>
 </g>
-            <rect x="-68.65" y="-95.59" transform="matrix(0.9968 -0.0795 0.0795 0.9968 -0.138 22.1286)" className="st7"
+            <rect x="-68.65" y="-110" transform="matrix(0.9968 -0.0795 0.0795 0.9968 -0.138 22.1286)" className="st7"
                   width="693.19" height="216.77"/>
 </svg>
 

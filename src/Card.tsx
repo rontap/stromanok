@@ -95,7 +95,7 @@ export class Card {
     static fromJSON(jsonStr: string) {
         try {
             const json = JSON.parse(jsonStr) as CardCtr;
-            return new Card(json as CardCtr);
+            return new Card(json.card as CardCtr);
 
         } catch (e) {
             console.error("MALFORMED JSON", e);
@@ -145,7 +145,7 @@ export class Card {
 
                         <div className={"cardName"}>{card.name}</div>
                         <div className={"cardMCE"}>
-                            <div>{card.effect}</div>
+                            <b>{card.effect}</b>
                             <div>{card.motto}</div>
                             {card.quote && <i>{card.quote}</i>}
                         </div>
@@ -153,9 +153,6 @@ export class Card {
                         <div className={"cardChips"}>{card.chips.split(",").map(chip => <span
                             className={"chip"}>{chip}</span>)}</div>
 
-                        <div>
-
-                        </div>
                         {!card.rankless && <div className={"cardRank"}>{card.rank}</div>}
                     </div>
                 </div>
