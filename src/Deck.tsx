@@ -19,8 +19,11 @@ export default function Deck({deck, setCardIndex, setDeck, setTab}: DeckProps) {
             .then(json => {
                 const newDeck = Collection.fromJSON(json)
                 setDeck(new Collection(newDeck.cards));
-                console.log(new Collection(newDeck.cards));
             })
+    }
+    const addCard = () => {
+        deck.add([Card.sample()]);
+        setUpdate({});
     }
     const addCardsToDeck = async (event) => {
         const results = [];
@@ -41,24 +44,29 @@ export default function Deck({deck, setCardIndex, setDeck, setTab}: DeckProps) {
         deck.add(results);
         setUpdate({});
     }
-    console.log(deck.cards,'>>');
+    console.log(deck.cards, '>>');
     return <div className={"mt-20 block absolute top-0 left-0 right-0"}>
-        <Heading>Deck{deck.cards.length > 0 ? `: ${deck.cards.length} Cards` : ''}</Heading>
+        <Heading>Deck{deck.cards.length > 0 ? `: ${deck.cards.length} Cards` : ' is empty'}</Heading>
         <br/>
         <div className={"p-3 bg-blue-100 rounded-l border-blue-300 border print:hide"}>
             <Heading>Actions</Heading>
             <div className={"grid gap-3 grid-cols-3 "}>
                 <div className="grid gap-1">
-                    <Text>Upload Deck</Text>
+                    <Text>Upload entire Deck</Text>
                     <input type="file" accept="application/json" onChange={handleUpload}/>
                 </div>
                 <div className="grid gap-1">
-                    <Text>Add Card to Deck</Text>
+                    <Text>Add a single Card to Deck</Text>
                     <input type="file" accept="application/json" multiple onChange={addCardsToDeck}/>
                 </div>
                 <Button onClick={() => deck.toJSON()}>Download Deck</Button>
             </div>
         </div>
+
+
+        <br/>
+        <Button onClick={addCard}>Add Card</Button>
+        <br/>
         <br/>
         <br/>
         <div className={"grid grid-cols-4 print:grid-cols-4 gap-5 w-[1380px] print:gap-3"}>

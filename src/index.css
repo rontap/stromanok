@@ -76,34 +76,37 @@ button:focus-visible {
         background-color: #f9f9f9;
     }
 }
+
 :root {
-    --card-w : calc(874px / 3);
-    --card-h : calc(1240px / 3);
+    --card-w: calc(874px / 3);
+    --card-h: calc(1240px / 3);
 
 }
+
 .cardOuter {
     position: relative;
     width: var(--card-w);
-    height: var(--card-h);
+    height: calc(var(--card-h) - 3px);
     overflow: hidden;
 }
 
 .imgCtr {
     display: block;
     /*border: 3px solid red;*/
-    width: var(--card-w);
-    height: var(--card-h);
+    /*width: var(--card-w);*/
+    /*height: var(--card-h);*/
     overflow: hidden;
     user-select: none;
     cursor: move;
     z-index: -1;
     margin: 2px;
     width: calc(100% - 4px);
+    height: calc(var(--card-h) - 7px);
 }
 
 .cardName {
     position: absolute;
-    transform:skew(-0deg, -6deg);
+    transform: skew(-0deg, -6deg);
     top: 12px;
     z-index: 9;
     left: 10px;
@@ -124,7 +127,7 @@ button:focus-visible {
     position: absolute;
     top: 318px;
     line-height: 18px;
-    font-size: 16px;
+    font-size: 14px;
     left: 0;
     right: 0;
     text-align: center;
@@ -205,7 +208,7 @@ button:focus-visible {
     opacity: 0.63;
     /*fill: url(#_x36__dpi_20_x25_);*/
     stroke: #000000;
-    fill:#f6f6f6;
+    fill: #f6f6f6;
     stroke-miterlimit: 10;
 }
 
@@ -227,4 +230,8 @@ button:focus-visible {
     top: 0;
     padding: 0px 10px 0px 10px;
     background: #dbeaff;
+}
+
+.zoom-2 {
+    zoom:1.5;
 }

@@ -1,50 +1,28 @@
-# React + TypeScript + Vite
+# Stromanok Card Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Usage
 
-Currently, two official plugins are available:
+## To Do Items
+- [ ] Write intro
+- [ ] Write readme.md
+- [ ] Update rulebook
+- [ ] Add default card sets to use
+- [ ] Add copy function, add fuse decks together
+- [ ] comment code properly
+- [ ] tests lmao
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Acknowledgements
 
-## Expanding the ESLint configuration
+## Version Log
+- 0.0 2024 Oct 26 - Bootstrap project
+- 0.1 2024 Nov 18 - Base Card editing
+- 0.2 2024 Dec 21 - Deck view
+- 0.3 2025 Jul 01
+  - ➕ remove and add cards from a deck
+  - ➕ add base home page and simplify navigation
+  - 🙏 fix overflow for styles
+  - 🚫 remove glow effect as it was annoying.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+---
+Released under [CC BY-NC](https://creativecommons.org/licenses/by-nc/4.0/) Licence.

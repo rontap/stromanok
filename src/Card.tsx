@@ -27,6 +27,24 @@ export type CardCtr = {
 export class Card {
     card: CardCtr;
 
+    static sample() {
+        return new Card(
+            {
+                name: "Card Name",
+                rank: 16,
+                xpos: 0,
+                ypos: 0,
+                width: 0,
+                data: "0",
+                chips: "Sample, Text",
+                deg: 0,
+                css: "",
+                img: "",
+                rankless: false,
+            } as CardCtr
+        )
+    }
+
     constructor(card?: CardCtr) {
         this.card = card || {
             name: "",
@@ -116,9 +134,10 @@ export class Card {
         return <>
             <div className={`mt-0 cardOuter card card-id-${card.rank}`}
 
-                 onMouseEnter={rotateToMouse(card)}
-                 onMouseMove={rotateToMouse(card)}
-                 onMouseLeave={endRotateToMouse(card)}>
+            //      onMouseEnter={rotateToMouse(card)}
+            //      onMouseMove={rotateToMouse(card)}
+            //      onMouseLeave={endRotateToMouse(card)}
+            >
                 <div className={"aCard"}>
 
                     <div className="svgCtr">

@@ -1,7 +1,7 @@
 import {Card, CardCtr} from "./Card.tsx";
 import {download} from "./utils.ts";
 
-export const app_version = 1.2;
+export const app_version = 0.3;
 
 export class Collection {
     cards: Card[] = [];
