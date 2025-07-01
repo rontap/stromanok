@@ -1,6 +1,6 @@
 import {Collection} from "./Collection.tsx";
 import {Card} from "./Card.tsx";
-import {Button, Heading, Text} from "@radix-ui/themes";
+import {Button, Heading, Text, Card as CardRadix} from "@radix-ui/themes";
 import React, {useState} from "react";
 
 type DeckProps = {
@@ -40,17 +40,23 @@ export default function Deck({deck, setCardIndex, setDeck, setTab}: DeckProps) {
                 }
                 reader.readAsText(file);
             })));
-        console.log(results);
         deck.add(results);
         setUpdate({});
     }
-    console.log(deck.cards, '>>');
+    const deleteDeck = () => {
+        if(window.confirm("Do you want to delete all cards in the deck? This action cannot be undone.")) {
+            deck.cards = [];
+            setUpdate({});
+        }
+
+    }
     return <div className={"mt-20 block absolute top-0 left-0 right-0"}>
-        <Heading>Deck{deck.cards.length > 0 ? `: ${deck.cards.length} Cards` : ' is empty'}</Heading>
+        <Heading>Deck{deck.cards.length > 0 ? `: ${deck.cards.length} Cards` : ' is empty'} / 35 Cards</Heading>
         <br/>
-        <div className={"p-3 bg-blue-100 rounded-l border-blue-300 border print:hide"}>
+        <CardRadix className={"p-3 bg-border print:hide "}>
             <Heading>Actions</Heading>
-            <div className={"grid gap-3 grid-cols-3 "}>
+            <div className={"grid gap-3 grid-cols-5 items-end"}>
+                <Button onClick={addCard}>Add Card</Button>
                 <div className="grid gap-1">
                     <Text>Upload entire Deck</Text>
                     <input type="file" accept="application/json" onChange={handleUpload}/>
@@ -59,14 +65,11 @@ export default function Deck({deck, setCardIndex, setDeck, setTab}: DeckProps) {
                     <Text>Add a single Card to Deck</Text>
                     <input type="file" accept="application/json" multiple onChange={addCardsToDeck}/>
                 </div>
-                <Button onClick={() => deck.toJSON()}>Download Deck</Button>
+                <Button onClick={() => deck.toJSON()}>Export Entire Deck</Button>
+                <Button color="red" onClick={deleteDeck}>Delete Entire Deck</Button>
+
             </div>
-        </div>
-
-
-        <br/>
-        <Button onClick={addCard}>Add Card</Button>
-        <br/>
+        </CardRadix>
         <br/>
         <br/>
         <div className={"grid grid-cols-4 print:grid-cols-4 gap-5 w-[1380px] print:gap-3"}>

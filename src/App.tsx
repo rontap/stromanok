@@ -2,12 +2,23 @@ import React, {useEffect, useState} from 'react'
 import './App.css'
 import './index.css'
 import "@radix-ui/themes/styles.css";
-import {Button, Checkbox, Heading, IconButton, Tabs, Text, TextArea, TextField, Theme} from '@radix-ui/themes';
+import {
+    Button,
+    Card as CardRadix,
+    Checkbox,
+    Heading,
+    IconButton,
+    Tabs,
+    Text,
+    TextArea,
+    TextField,
+    Theme
+} from '@radix-ui/themes';
 import SliderInput from "./SliderInput.tsx";
 import {Card, CardCtr} from "./Card.tsx";
 import {convertBlobToBase64} from "./utils.ts";
 import Deck from "./Deck.tsx";
-import {Collection} from "./Collection.tsx";
+import {app_version, Collection} from "./Collection.tsx";
 import {ArrowLeftIcon} from "@radix-ui/react-icons";
 import LandingPage from './LandingPage.tsx';
 
@@ -114,13 +125,12 @@ function App() {
     }
 
     return (
-        <><Theme id="theme"><Tabs.Root value={tab}>
+        <><Theme id="theme"><Tabs.Root value={tab} >
 
             <div id={"head"} className={"print:hidden"}>
 
                 <Tabs.List>
-                    <b className={"mt-2.5"}>Strómanók Kártyagyár</b>
-
+                    <b className={"mt-2.5"}>Strómanók Kártyagyár v{app_version}</b>
                     <Tabs.Trigger onClick={() => setTab("home")} value="home">Kezdőlap</Tabs.Trigger>
                     <Tabs.Trigger onClick={() => setTab("deck")} value="deck">Pakli</Tabs.Trigger>
                     <Tabs.Trigger onClick={() => setTab("cards")} value="cards">Kártyák</Tabs.Trigger>
@@ -142,7 +152,7 @@ function App() {
                         </IconButton>
                         {" "}
                         Editing Card
-                        <i>{card.name}</i>
+                        <i> {card.name}</i>
                     </Heading>
                     <br/>
                     <div className="grid grid-cols-2 gap-4 absolute left-0 right-0 top-15 grid-rows-1">
@@ -163,108 +173,125 @@ function App() {
                             </span>
 
                         </div>
-                        <div className="grid gap-2 grid-cols-1">
-                            <Heading>Personal Details</Heading>
-                            <TextField.Root
-                                value={card.name}
-                                onChange={setPartial("name")}
-                                variant="surface" placeholder="Name of Person"/>
-                            <TextField.Root variant="surface"
-                                            value={card.chips}
-                                            onChange={setPartial("chips")}
-                                            placeholder="Chips (comma seperated)"/>
-                            <Heading>Text Flavour (choose two)</Heading>
-                            <TextArea
-                                value={card.motto}
-                                onChange={setPartial("motto")}
-                                disabled={!!(card.effect && card.quote)}
-                                placeholder="Motto of person"/>
-                            <TextArea
-                                value={card.effect}
-                                onChange={setPartial("effect")}
-                                disabled={!!(card.motto && card.quote)}
+                        <div className="grid gap-4 grid-cols-2">
+                            <CardRadix>
+                                <div className="grid gap-2 grid-cols-1 p-4">
+                                    <Heading>Personal Details</Heading>
+                                    <TextField.Root
+                                        value={card.name}
+                                        onChange={setPartial("name")}
+                                        variant="surface" placeholder="Name of Person"/>
+                                    <TextField.Root variant="surface"
+                                                    value={card.chips}
+                                                    onChange={setPartial("chips")}
+                                                    placeholder="Chips (comma seperated)"/>
 
-                                placeholder="Effect"/>
-                            <TextArea
-                                value={card.quote}
-                                onChange={setPartial("quote")}
-                                disabled={!!(card.effect && card.motto)}
-                                placeholder="Quote from the person"/>
-                            <div className="grid gap-1">
-                                Rankless
-                                <Checkbox
-                                    checked={card.rankless}
-                                    onCheckedChange={setPartialRaw("rankless")}/>
-                            </div>
-                            <div className="grid gap-1">
-                                <Text>Rank of Card</Text>
-                                <SliderInput
-                                    initialValue={card.rank}
-                                    onChange={setPartialRaw("rank")}
-                                    min={0} max={36} placeholder={"Value"}/>
-                            </div>
+                                    <Heading className="mt-5">Text Flavour (choose two)</Heading>
+                                    <TextArea
+                                        value={card.motto}
+                                        onChange={setPartial("motto")}
+                                        disabled={!!(card.effect && card.quote)}
+                                        placeholder="Motto of person"/>
+                                    <TextArea
+                                        value={card.effect}
+                                        onChange={setPartial("effect")}
+                                        disabled={!!(card.motto && card.quote)}
 
-                            <Heading>Image</Heading>
-                            <div className="grid gap-1">
-                                <Text>Upload Image</Text>
-                                <input type="file" accept="image/*" onChange={handleImageUpload}/>
-                            </div>
-                            <div className="grid gap-1">
-                                <Text>Vertical Position</Text>
-                                <SliderInput
-                                    initialValue={card.ypos}
-                                    onChange={setPartialRaw("ypos")}
-                                    min={-1000} max={1000} placeholder={"Value"}/>
-                            </div>
-                            <div className="grid gap-1">
-                                <Text>Horizontal Position</Text>
-                                <SliderInput
-                                    initialValue={card.xpos}
-                                    onChange={setPartialRaw("xpos")}
-                                    min={-1000} max={1000} placeholder={"Value"}/>
-                            </div>
-                            <div className="grid gap-1">
-                                <Text>Zoom</Text>
-                                <SliderInput
-                                    initialValue={card.width}
-                                    onChange={setPartialRaw("width")}
-                                    min={-100} max={200}
-                                    placeholder={"Value"}/>
-                            </div>
-                            <div className="grid gap-1">
-                                <Text>Rotate</Text>
-                                <SliderInput
-                                    initialValue={card.deg}
-                                    onChange={setPartialRaw("deg")}
-                                    min={-180} max={180}
-                                    placeholder={"Value"}/>
-                            </div>
-                            <div className="grid gap-1">
-                                <Text>Mirror Image</Text>
-                                <label>
-                                    <Checkbox aria-label={"Vertical"} value={"vertical"}/> <span>Vertical</span>
-                                </label>
-                                <label>
-                                    <Checkbox aria-label={"Vertical"} value={"vertical"}/> <span>Horizontal</span>
-                                </label>
-                            </div>
-                            <Heading>Advanced</Heading>
-                            <TextArea
-                                value={card.css}
-                                onChange={setPartial("css")}
-                                placeholder="@{CSS}"/>
-                            {/*<small>*/}
-                            {/*    @cardRank - card rank container<br/>*/}
-                            {/*    @cardMCE - <br/>*/}
-                            {/*    @aCard -<br/>*/}
-                            {/*    @aCardDyn -<br/>*/}
-                            {/*    @cardChips -<br/>*/}
-                            {/*    @st[2-7]*/}
-                            {/*</small>*/}
+                                        placeholder="Effect"/>
+                                    <TextArea
+                                        value={card.quote}
+                                        onChange={setPartial("quote")}
+                                        disabled={!!(card.effect && card.motto)}
+                                        placeholder="Quote from the person"/>
+                                    <label>
+                                        <Checkbox
+                                            checked={card.rankless}
+                                            onCheckedChange={setPartialRaw("rankless")}/>
+                                        Hide rank (for special cards)
+                                    </label>
+                                    <div className="grid gap-1">
+                                        <Text>Rank of Card</Text>
+                                        <SliderInput
+                                            initialValue={card.rank}
+                                            onChange={setPartialRaw("rank")}
+                                            min={0} max={36} placeholder={"Value"}/>
+                                    </div>
+                                </div>
+                            </CardRadix>
 
-                            <small>Edits are saved automatically</small>
-                            <Button onClick={() => Card.download(card)}>Export</Button>
-                            <Button color={"red"} onClick={() => deleteCard(card)}>Delete</Button>
+                            <CardRadix>
+                                <div className="grid gap-2 grid-cols-1 p-4">
+                                    <Heading>Image</Heading>
+                                    <div className="grid gap-1">
+                                        <Text>Upload Image</Text>
+                                        <input type="file" accept="image/*" onChange={handleImageUpload}/>
+                                    </div>
+                                    <div className="grid gap-1">
+                                        <Text>Vertical Position</Text>
+                                        <SliderInput
+                                            initialValue={card.ypos}
+                                            onChange={setPartialRaw("ypos")}
+                                            min={-1000} max={1000} placeholder={"Value"}/>
+                                    </div>
+                                    <div className="grid gap-1">
+                                        <Text>Horizontal Position</Text>
+                                        <SliderInput
+                                            initialValue={card.xpos}
+                                            onChange={setPartialRaw("xpos")}
+                                            min={-1000} max={1000} placeholder={"Value"}/>
+                                    </div>
+                                    <div className="grid gap-1">
+                                        <Text>Zoom</Text>
+                                        <SliderInput
+                                            initialValue={card.width}
+                                            onChange={setPartialRaw("width")}
+                                            min={-100} max={200}
+                                            placeholder={"Value"}/>
+                                    </div>
+                                    <div className="grid gap-1">
+                                        <Text>Rotate</Text>
+                                        <SliderInput
+                                            initialValue={card.deg}
+                                            onChange={setPartialRaw("deg")}
+                                            min={-180} max={180}
+                                            placeholder={"Value"}/>
+                                    </div>
+                                    <div className="grid gap-1">
+                                        {/*TODO Implement mirroring*/}
+                                        <Text>Mirror Image</Text>
+                                        <label>
+                                            <Checkbox disabled aria-label={"Vertical"} value={"vertical"}/>
+                                            <span>Vertical</span>
+                                        </label>
+                                        <label>
+                                            <Checkbox disabled aria-label={"Vertical"} value={"vertical"}/>
+                                            <span>Horizontal</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </CardRadix>
+                            <CardRadix>
+                                <div className="grid gap-2 grid-cols-1 p-4">
+                                    <Heading>Advanced</Heading>
+                                    <TextArea
+                                        value={card.css}
+                                        onChange={setPartial("css")}
+                                        placeholder="@{CSS}"/>
+                                    {/*<small>*/}
+                                    {/*    @cardRank - card rank container<br/>*/}
+                                    {/*    @cardMCE - <br/>*/}
+                                    {/*    @aCard -<br/>*/}
+                                    {/*    @aCardDyn -<br/>*/}
+                                    {/*    @cardChips -<br/>*/}
+                                    {/*    @st[2-7]*/}
+                                    {/*</small>*/}
+                                </div>
+                            </CardRadix>
+                            <span>
+                                Edits are saved automatically.
+                            </span>
+                            <Button color="gray" onClick={() => Card.download(card)}>Export this card</Button>
+                            <Button color="red" onClick={() => deleteCard(card)}>Delete</Button>
 
                         </div>
                     </div>

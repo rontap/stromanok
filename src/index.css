@@ -233,5 +233,15 @@ button:focus-visible {
 }
 
 .zoom-2 {
-    zoom:1.5;
+    zoom: 1.5;
 }
+    input::file-selector-button {
+        all:unset;
+        background-color: var(--accent-9);
+        color: var(--accent-contrast);
+        padding: var(--space-1) var(--space-3);
+        margin:0 var(--space-1);
+        --base-button-classic-active-padding-top: 2px;
+        --base-button-height: var(--space-6);
+        border-radius: max(var(--radius-2), var(--radius-full));
+    }

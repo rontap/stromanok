@@ -1,7 +1,7 @@
 import {Card, CardCtr} from "./Card.tsx";
 import {download} from "./utils.ts";
 
-export const app_version = 0.3;
+export const app_version = 0.4 as const;
 
 export class Collection {
     cards: Card[] = [];
@@ -23,13 +23,16 @@ export class Collection {
     }
 
     static fromJSON(deck) {
-
         if (app_version != deck.app_version) {
-            if (!window.confirm(`app version mismatch. ${app_version} vs ${deck.app_version}\nCards may not load correctly. Continue?`)) {
+            if (!window.confirm(`This deck was created with a different version of this application.\nCurrent: ${app_version} vs File version: ${deck.app_version}\nCards may not load correctly. Continue?`)) {
                 return;
             }
         }
-        deck.cards = deck.cards.map((card: CardCtr) => new Card(card));
+        try {
+            deck.cards = deck.cards.map((card: CardCtr) => new Card(card));
+        } catch (e) {
+            window.alert("Could not load file.\n" + e);
+        }
         return deck;
     }
 

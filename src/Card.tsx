@@ -3,7 +3,6 @@ import {app_version} from "./Collection.tsx";
 import Svg from "./Svg.tsx";
 import React from "react";
 import './3deffect.css';
-import {endRotateToMouse, rotateToMouse} from "./3d.ts";
 
 type Image = {
     xpos: number;
@@ -134,9 +133,9 @@ export class Card {
         return <>
             <div className={`mt-0 cardOuter card card-id-${card.rank}`}
 
-            //      onMouseEnter={rotateToMouse(card)}
-            //      onMouseMove={rotateToMouse(card)}
-            //      onMouseLeave={endRotateToMouse(card)}
+                //      onMouseEnter={rotateToMouse(card)}
+                //      onMouseMove={rotateToMouse(card)}
+                //      onMouseLeave={endRotateToMouse(card)}
             >
                 <div className={"aCard"}>
 
@@ -169,8 +168,10 @@ export class Card {
                             {card.quote && <i>{card.quote}</i>}
                         </div>
 
-                        <div className={"cardChips"}>{card.chips.split(",").map(chip => <span
-                            className={"chip"}>{chip}</span>)}</div>
+                        <div className={"cardChips"}>{
+                            card.chips.length > 0 && card.chips.split(",").map(chip => <span
+                                className={"chip"}>{chip}</span>)
+                        }</div>
 
                         {!card.rankless && <div className={"cardRank"}>{card.rank}</div>}
                     </div>
