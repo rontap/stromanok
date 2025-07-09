@@ -28,6 +28,9 @@
     - ➕ add proper styling to Deck Actions, add remove entire deck option
     - ➕ add proper styling to actions in Card view
     - 🙏 fix #1
+- 0.5 2025 Jul 09
+    - ➕ Add progress bar and better error handling when loading cards and decks
+    - ➕ Add proper plint layout
 
 ---
 Released under [CC BY-NC](https://creativecommons.org/licenses/by-nc/4.0/) Licence.
